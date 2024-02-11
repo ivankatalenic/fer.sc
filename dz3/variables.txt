@@ -1,0 +1,109 @@
+Output variables:
+	- Linear acceleration (A): [-50, 100]
+		- NB: \(-10, -5)
+		- NS: A(-8, -5, -2)
+		- ZO: A(-5, 0, 5)
+		- PS: A(2, 5, 8)
+		- PB: /(5, 10)
+	- Angular acceleration (W): [-120, 120]
+		- NB: \(-60, -45)
+		- NS: A(-45, -20, -5)
+		- ZO: A(-5, 0, 5)
+		- PS: A(5, 20, 45)
+		- PB: /(45, 60)
+Input variables:
+	- Left/Right distance (L, R): [0, 1300]
+		- Close: \(0, 40)
+		- Medium: A(30, 60, 90)
+		- Far: /(80, 120)
+	- Speed (S): [0, 1000]
+		- Small: \(10, 30)
+		- Medium: A(25, 75, 125)
+		- Big: /(100, 200)
+	- Direction (D): {0, 1}
+		- Right: 1
+		- Wrong: 0
+Rules v1:
+	- Linear acceleration:
+		- IF (L is Close) and (LA is Close) and ((S is Big) or (S is Medium)) THEN (A is NS)
+		- IF (R is Close) and (RA is Close) and ((S is Big) or (S is Medium)) THEN (A is NS)
+		- IF (L is Close) and (LA is Medium) and ((S is Big) or (S is Medium)) THEN (A is NB)
+		- IF (R is Close) and (RA is Medium) and ((S is Big) or (S is Medium)) THEN (A is NB)
+		- IF (L is Medium) and (LA is Close) and ((S is Big) or (S is Medium)) THEN (A is NB)
+		- IF (R is Medium) and (RA is Close) and ((S is Big) or (S is Medium)) THEN (A is NB)
+		- IF (L is Far) and (LA is Far) THEN (A is PB)
+		- IF (R is Far) and (RA is Far) THEN (A is PB)
+		- IF (S is Small) and (D is Right) THEN (A is PS)
+	- Angular acceleration:
+		- IF (L is Close) and ((LA is Close) or (LA is Medium)) THEN (W is NB)
+		- IF (R is Close) and ((RA is Close) or (RA is Medium)) THEN (W is PB)
+		- IF (L is Medium) and (LA is Close) and ((S is Big) or (S is Medium)) THEN (W is NB)
+		- IF (R is Medium) and (RA is Close) and ((S is Big) or (S is Medium)) THEN (W is PB)
+		- IF (L is Far) and (LA is Far) and ((S is Small) or (S is Medium)) THEN (W is ZO)
+		- IF (R is Far) and (RA is Far) and ((S is Small) or (S is Medium)) THEN (W is ZO)
+		- IF (L is Far) and (R is Close) and (D is Wrong) THEN (W is PB)
+		- IF (L is Close) and (R is Far) and (D is Wrong) THEN (W is NB)
+Rules v2:
+	- Linear acceleration:
+		- IF (S is Small) and (D is Right) THEN (A is PS)
+		- IF (S is Small) THEN (A is PS)
+		- IF (S is Big) THEN (A is NS)
+	- Angular acceleration:
+		- IF (L is Close) and ((LA is Close) or (LA is Medium)) THEN (W is NS)
+		- IF (R is Close) and ((RA is Close) or (RA is Medium)) THEN (W is PS)
+		- IF (L is Medium) and (LA is Close) THEN (W is NB)
+		- IF (R is Medium) and (RA is Close) THEN (W is PB)
+		- IF (L is Far) and (LA is Far) THEN (W is ZO)
+		- IF (R is Far) and (RA is Far) THEN (W is ZO)
+		- IF (L is Far) and (R is Close) and (D is Wrong) THEN (W is PB)
+		- IF (L is Close) and (R is Far) and (D is Wrong) THEN (W is NB)
+Rules v3:
+	- Linear acceleration:
+		- IF (S is Small) and (D is Right) THEN (A is PS)
+		- IF (S is Small) THEN (A is PS)
+		- IF (S is Big) THEN (A is NS)
+	- Angular acceleration:
+		- IF (L is (Medium or Close)) and (LA is Close) THEN (W is NB)
+		- IF (R is (Medium or Close)) and (RA is Close) THEN (W is PB)
+		- IF (L is (Far or Medium)) and (LA is Medium) THEN (W is NS)
+		- IF (R is (Far or Medium)) and (RA is Medium) THEN (W is PS)
+		- IF (L is Far) and (LA is Far) THEN (W is ZO)
+		- IF (R is Far) and (RA is Far) THEN (W is ZO)
+		- IF (L is Far) and (R is Close) and (D is Wrong) THEN (W is PB)
+		- IF (L is Close) and (R is Far) and (D is Wrong) THEN (W is NB)
+
+Rules v4:
+	- Linear acceleration:
+		- IF (S is Small) and (D is Right) THEN (A is PS)
+		- IF (S is Small) THEN (A is PS)
+		- IF (S is Big) THEN (A is NS)
+	- Angular acceleration:
+		- IF (L is (Medium or Close)) and (LA is Close) THEN (W is NB)
+		- IF (R is (Medium or Close)) and (RA is Close) THEN (W is PB)
+		- IF (L is (Far or Medium)) and (LA is Medium) THEN (W is NS)
+		- IF (R is (Far or Medium)) and (RA is Medium) THEN (W is PS)
+		- IF (L is Close) THEN (W is NB)
+		- IF (R is Close) THEN (W is PB)
+		- IF (L is Far) and (LA is Far) THEN (W is ZO)
+		- IF (R is Far) and (RA is Far) THEN (W is ZO)
+		- IF (L is Far) and (R is Close) and (D is Wrong) THEN (W is PB)
+		- IF (L is Close) and (R is Far) and (D is Wrong) THEN (W is NB)
+
+Rules v5:
+	- Linear acceleration:
+		- IF (S is Small) and (D is Right) THEN (A is PS)
+		- IF (S is Small) THEN (A is PS)
+		- IF (S is Big) THEN (A is NS)
+	- Angular acceleration:
+		- IF (L is (Medium or Close)) and (LA is Close) THEN (W is NB)
+		- IF (R is (Medium or Close)) and (RA is Close) THEN (W is PB)
+		- IF (L is (Far or Medium)) and (LA is Medium) THEN (W is NS)
+		- IF (R is (Far or Medium)) and (RA is Medium) THEN (W is PS)
+		- IF (L is Close) THEN (W is NB)
+		- IF (R is Close) THEN (W is PB)
+		- IF (LA is Close) THEN (W is NB)
+		- IF (RA is Close) THEN (W is PB)
+		- IF (L is Far) and (LA is Far) THEN (W is ZO)
+		- IF (R is Far) and (RA is Far) THEN (W is ZO)
+		- IF (L is Far) and (R is Close) and (D is Wrong) THEN (W is PB)
+		- IF (L is Close) and (R is Far) and (D is Wrong) THEN (W is NB)
